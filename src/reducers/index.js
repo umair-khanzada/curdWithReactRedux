@@ -4,8 +4,8 @@
 
 
 import { combineReducers } from 'redux';
-import Data from './data';
+import games from './Games';
 
 export default combineReducers({
-    Data
+    games
 });
