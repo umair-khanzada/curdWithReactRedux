@@ -13,23 +13,33 @@ class Games extends Component {
     }
 
     render() {
-        console.log("this.props.games", this.props.games)
-        const emptyGameMessage = (<span>Sorry there are no games available.</span>);
-        const gameList = (
-            this.props.games.map((obj, i) => <div key={i}>{i}</div> )
-        );
-        return (
-            <div>
-                <h2>
-                    {this.props.games.length ? gameList : emptyGameMessage}
-                </h2>
+
+        const apiHit = (
+            <div className="loading">
+                <i className="fa fa-circle-o-notch fa-spin"></i>
+                <p>Please wait fetching games for you!</p>
             </div>
         );
+
+        const success = (
+            this.props.games.games.map((obj, i) => <div key={i} className="dataList">{obj.message}</div> )
+        );
+
+        const error = (
+            <div>Something went wrong please check you internet connection.</div>
+        );
+
+        return (
+            <div className="games">
+                { this.props.games.loading ? apiHit : this.props.games.games.length ? success : error }
+            </div>
+        );
+
     }
 }
 
 Games.propTypes = {
-  games: React.PropTypes.array.isRequired,
+  games: React.PropTypes.object.isRequired,
   fetchGames: React.PropTypes.func.isRequired
 };
 
